@@ -1,0 +1,32 @@
+<div class="menu">
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-light lime accent-4">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><a class="navbar-brand" href="#">Club de Tenis</a></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/">Inicio<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active" routerLinkActive="active">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/addjug">Añadir jugadores<span class="sr-only">(current)</span></a>
+      </li>
+    </ul>
+
+    <!-- Search form -->
+    <form class="form-inline waves-light" mdbWavesEffect>
+      <div class="md-form mt-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+      </div>
+    </form>
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+</div>
