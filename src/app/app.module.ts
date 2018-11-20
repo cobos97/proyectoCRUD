@@ -10,6 +10,8 @@ import {FormsModule} from '@angular/forms';
 import {AddjugComponent} from './jugadores/addjug/addjug.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
+import { JugadoresService } from './servicios/jugadores.service';
+
 const routes: Routes = [
     {path: '', component: InicioComponent},
     {path: 'addjug', component: AddjugComponent},
@@ -30,7 +32,7 @@ const routes: Routes = [
         FormsModule,
         ReactiveFormsModule
     ],
-    providers: [],
+    providers: [JugadoresService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
