@@ -26,8 +26,12 @@
 
             <button type="submit" mdbBtn color="light" class="lime accent-4" mdbWavesEffect [disabled]="!jugadoresForm.valid">Añadir jugador</button>
 
-            <div class="alert alert-danger" role="alert" *ngIf="!jugadoresForm.valid">
+            <div class="alert alert-danger" role="alert" *ngIf="!jugadoresForm.valid && !enviado">
                 Por favor rellene todos los campos
+            </div>
+
+            <div class="alert alert-success" role="alert" *ngIf="enviado">
+                Nuevo jugador insertado en la base de datos
             </div>
 
         </form>

@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { AngularFireDatabase } from 'angularfire2/database';
+import {interval} from "rxjs";
 
 @Component({
     selector: 'app-addjug',
@@ -11,9 +13,13 @@ export class AddjugComponent implements OnInit {
     jugadoresForm: FormGroup;
     jugador: any;
 
-    constructor(private jf: FormBuilder) {
-    }
+    enviado: boolean;
 
+    constructor(private jf: FormBuilder, private db: AngularFireDatabase) {
+    }
+    /*
+    constructor(private db: AngularFireDatabase) { }
+*/
     ngOnInit() {
         this.jugadoresForm = this.jf.group({
             nombre: ['', Validators.required ],
@@ -24,7 +30,24 @@ export class AddjugComponent implements OnInit {
 
     onSubmit() {
         this.jugador= this.saveJugador();
+        this.db.list('jugadores').push(this.jugador)
+            .then(_ => {
+                this.jugador = {}
+                console.log('success')
+        })
+
+        this.enviado=true;
+
+        this.jugadoresForm = this.jf.group({
+            nombre: ['', Validators.required ],
+            apellidos: ['', Validators.required ],
+            fechanac: ['', Validators.required ]
+        });
+
     }
+
+
+
 
     saveJugador() {
         const savePresupuesto = {
