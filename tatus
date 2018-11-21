@@ -1,0 +1,41 @@
+[33mcommit 0c293d282c60e78459b916e44e5a9766b822e665[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Wed Nov 21 10:42:49 2018 +0100
+
+    Añade jugadores a firebase
+
+[33mcommit e72f75c2a660f591ecea54dda422f71329a49dd6[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Tue Nov 20 21:15:05 2018 +0100
+
+    Intento de firebase
+
+[33mcommit c01be54703198a740a8c66b2b33b9b52aa05fc70[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Tue Nov 20 21:01:39 2018 +0100
+
+    Favicon cambiado
+
+[33mcommit 0dbede0b6d15b118ccb5e0358a248f03148f5df2[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Tue Nov 20 20:42:51 2018 +0100
+
+    Instalado firebase
+
+[33mcommit 1bd09355e04bd79350cbe207f45290e939714fc1[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Tue Nov 20 19:47:04 2018 +0100
+
+    Añadidos header y addjug con validacion
+
+[33mcommit 609ce4d6d30ed0416f5714d810e3e4be8b4c8130[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Tue Nov 20 18:58:13 2018 +0100
+
+    Commit incial de verdad
+
+[33mcommit ce511493001da16504306d44c51fa1df31a343ec[m
+Author: Antonio Miguel Cobos Fernández <cobosmoriles@gmail.com>
+Date:   Tue Nov 20 18:53:15 2018 +0100
+
+    Commit inicial

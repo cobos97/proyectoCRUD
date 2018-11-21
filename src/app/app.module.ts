@@ -14,7 +14,6 @@ import {FormsModule} from '@angular/forms';
 import {AddjugComponent} from './jugadores/addjug/addjug.component';
 import {ReactiveFormsModule} from '@angular/forms';
 
-import { JugadoresService } from './servicios/jugadores.service';
 
 
 
@@ -40,7 +39,7 @@ const routes: Routes = [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
     ],
-    providers: [JugadoresService],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {
