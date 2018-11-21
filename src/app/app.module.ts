@@ -13,6 +13,7 @@ import {HeaderComponent} from './header/header.component';
 import {FormsModule} from '@angular/forms';
 import {AddjugComponent} from './jugadores/addjug/addjug.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { JugadoresComponent } from './jugadores/jugadores/jugadores.component';
 
 
 
@@ -20,6 +21,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 const routes: Routes = [
     {path: '', component: InicioComponent},
     {path: 'addjug', component: AddjugComponent},
+    {path: 'jugadores', component: JugadoresComponent},
     {path: '**', component: InicioComponent}
 ];
 
@@ -28,7 +30,8 @@ const routes: Routes = [
         AppComponent,
         InicioComponent,
         HeaderComponent,
-        AddjugComponent
+        AddjugComponent,
+        JugadoresComponent
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,20 @@
+<h3>Listado de Jugadores</h3>
+<a type="button" mdbBtn color="light" mdbWavesEffect class="float-md-right lime accent-4" routerLink="/addjug">Añadir
+    nuevo presupuesto</a>
+<br>
+<table class="table table-bordered table-striped tabla" style="margin-top:40px;">
+    <thead>
+    <tr class="filters">
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Fecha de Nacimiento</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let jugador of jugadores">
+        <td>{{ jugador.nombre}}</td>
+        <td>{{ jugador.apellidos}}</td>
+        <td>{{ jugador.fechanac}}</td>
+    </tr>
+    </tbody>
+</table>
