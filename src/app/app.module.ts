@@ -14,14 +14,15 @@ import {FormsModule} from '@angular/forms';
 import {AddjugComponent} from './jugadores/addjug/addjug.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { JugadoresComponent } from './jugadores/jugadores/jugadores.component';
-
-
+import { RegistroComponent } from './autenticacion/registro/registro.component';
+import { AutenticacionService } from './servicios/autenticacion.service';
 
 
 const routes: Routes = [
     {path: '', component: InicioComponent},
     {path: 'addjug', component: AddjugComponent},
     {path: 'jugadores', component: JugadoresComponent},
+    {path: 'registro', component: RegistroComponent},
     {path: '**', component: InicioComponent}
 ];
 
@@ -31,7 +32,8 @@ const routes: Routes = [
         InicioComponent,
         HeaderComponent,
         AddjugComponent,
-        JugadoresComponent
+        JugadoresComponent,
+        RegistroComponent
     ],
     imports: [
         BrowserModule,
@@ -42,7 +44,7 @@ const routes: Routes = [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
     ],
-    providers: [],
+    providers: [AutenticacionService],
     bootstrap: [AppComponent]
 })
 export class AppModule {

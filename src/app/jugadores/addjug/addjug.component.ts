@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {interval} from 'rxjs';
+import {AutenticacionService} from '../../servicios/autenticacion.service';
 
 @Component({
     selector: 'app-addjug',

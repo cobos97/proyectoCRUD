@@ -10,7 +10,7 @@ export class JugadoresComponent implements OnInit {
 
     jugadores: any[] = [];
 
-    constructor(private db: AngularFireDatabase) {
+    constructor() {
     }
 
     ngOnInit() {
