@@ -11,14 +11,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let jugador of (jugadores$ | async)">
-        <td>{{ jugador.nombre}}</td>
-        <td>{{ jugador.apellidos}}</td>
-        <td>{{ jugador.fechanac}}</td>
+    <tr *ngFor="let jugador of jugadores$">
+        <td>{{jugador.nombre}}</td>
+        <td>{{jugador.apellidos}}</td>
+        <td>{{jugador.fechanac}}</td>
     </tr>
     </tbody>
 </table>
 
 <p>
-    {{jugadores}}
+    {{jugadores$}}
 </p>
