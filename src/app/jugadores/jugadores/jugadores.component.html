@@ -12,13 +12,9 @@
     </thead>
     <tbody>
     <tr *ngFor="let jugador of jugadores$">
-        <td>{{jugador.nombre}}</td>
-        <td>{{jugador.apellidos}}</td>
-        <td>{{jugador.fechanac}}</td>
+        <td>{{jugador.data.nombre}}</td>
+        <td>{{jugador.data.apellidos}}</td>
+        <td>{{jugador.data.fechanac}}</td>
     </tr>
     </tbody>
 </table>
-
-<p>
-    {{jugadores$}}
-</p>
