@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AutenticacionService} from '../../servicios/autenticacion.service';
 import {Router, ActivatedRoute} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-inises',
@@ -12,6 +12,7 @@ export class InisesComponent implements OnInit {
 
     loginForm: FormGroup;
     userdata: any;
+    mensaje = false;
 
     constructor(private formBuilder: FormBuilder,
                 private autService: AutenticacionService,
@@ -37,7 +38,22 @@ export class InisesComponent implements OnInit {
 
     onSubmit() {
         this.userdata = this.saveUserdata();
-        this.autService.inicioSesion(this.userdata);
+        this.autService.inicioSesion(this.userdata)
+            .then(response => {
+                console.log(response);
+                this.router.navigate(['/inicio']);
+            })
+            .catch(
+                error => {
+                    console.log(error);
+                }
+            );
+        setTimeout(() => {
+            if (this.isAuth() === false) {
+                this.mensaje = true;
+            }
+        }, 2000);
+
     }
 
     saveUserdata() {
@@ -47,6 +63,10 @@ export class InisesComponent implements OnInit {
             password: this.loginForm.get('password').value,
         };
         return saveUserdata;
+    }
+
+    isAuth() {
+        return this.autService.isAuthenticated();
     }
 
 }

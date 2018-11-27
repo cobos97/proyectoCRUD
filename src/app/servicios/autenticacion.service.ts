@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as firebase from 'firebase';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -8,29 +8,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class AutenticacionService {
 
     constructor(private router: Router,
-                private activatedRouter: ActivatedRoute) { }
-
-        /*
-        Devuelve un Promise de tipo fire.auth.userCredentials
-        */
-    registroUsuario(userdata) {  
-        return firebase.auth().createUserWithEmailAndPassword(userdata.email,
-            userdata.password);
-            
+                private activatedRouter: ActivatedRoute) {
     }
 
-    inicioSesion (userdata) {
-        firebase.auth().signInWithEmailAndPassword(userdata.email,
-            userdata.password)
-            .then(response => {
-                console.log(response);
-                this.router.navigate(['/inicio']);
-            })
-            .catch(
-                error => {
-                    console.log(error);
-                }
-            )
+    /*
+    Devuelve un Promise de tipo fire.auth.userCredentials
+    */
+    registroUsuario(userdata) {
+        return firebase.auth().createUserWithEmailAndPassword(userdata.email,
+            userdata.password);
+    }
+
+    inicioSesion(userdata) {
+        return firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password);
+
     }
 
     isAuthenticated() {
