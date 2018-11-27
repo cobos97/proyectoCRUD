@@ -10,15 +10,13 @@ export class AutenticacionService {
     constructor(private router: Router,
                 private activatedRouter: ActivatedRoute) { }
 
-
-    registroUsuario(userdata) {
-        firebase.auth().createUserWithEmailAndPassword(userdata.email,
-            userdata.password)
-            .catch(
-                error => {
-                    console.log(error);
-                }
-            );
+        /*
+        Devuelve un Promise de tipo fire.auth.userCredentials
+        */
+    registroUsuario(userdata) {  
+        return firebase.auth().createUserWithEmailAndPassword(userdata.email,
+            userdata.password);
+            
     }
 
     inicioSesion (userdata) {

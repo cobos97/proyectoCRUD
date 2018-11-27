@@ -14,6 +14,9 @@ export class HeaderComponent implements OnInit {
                 private activatedRouter: ActivatedRoute) { }
 
   ngOnInit() {
+
+        console.log(this.isAuth());
+
   }
 
     isAuth() {
@@ -24,5 +27,8 @@ export class HeaderComponent implements OnInit {
         this.autService.logout();
         this.router.navigate(['/inicio'])
     }
+
+
+
 
 }

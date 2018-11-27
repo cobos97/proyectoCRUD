@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
                 apiKey: 'AIzaSyAol-CcpelClgSa9wen20PWMElWMUKt6Tw',
                 authDomain: 'proyectocrud-b8234.firebaseapp.com'
             });
-        }
-    */
+        }*/
+    
 
     ngOnInit() {
 

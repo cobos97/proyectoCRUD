@@ -42,7 +42,6 @@ export class JugadoresComponent implements OnInit {
                 this.jugadores$ = jugadores;
             }
         );
-
     }
 
 }

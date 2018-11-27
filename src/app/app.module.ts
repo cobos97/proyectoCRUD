@@ -16,6 +16,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { JugadoresComponent } from './jugadores/jugadores/jugadores.component';
 import { RegistroComponent } from './autenticacion/registro/registro.component';
 import { AutenticacionService } from './servicios/autenticacion.service';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 
 const routes: Routes = [
@@ -41,8 +42,9 @@ const routes: Routes = [
         RouterModule.forRoot(routes),
         FormsModule,
         ReactiveFormsModule,
-        AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
+        AngularFireAuthModule,
+        AngularFireModule.initializeApp(environment.firebase)
     ],
     providers: [AutenticacionService],
     bootstrap: [AppComponent]

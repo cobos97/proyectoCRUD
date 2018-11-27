@@ -67,9 +67,19 @@ export class RegistroComponent implements OnInit {
     }
 
     onSubmit() {
-        this.userdata = this.saveUserdata();
-        this.autService.registroUsuario(this.userdata);
-        this.router.navigate(['/inicio']);
+        this.userdata = this.saveUserdata();;
+        
+        this.autService.registroUsuario(this.userdata)
+        .then(
+            (user)=>{
+                this.router.navigate(['/inicio']);
+            }
+        )
+        .catch(
+                (err)=>{
+                    console.log(err);
+                }
+        );
     }
 
     saveUserdata() {
