@@ -41,18 +41,14 @@ export class JugadoresService {
                     return {data};
                 }
             );
-        }))}
-
-
+        }));
+    }
 
 
     guardarJugador(jugador) {
-        //this.jugador = this.saveJugador();
-        this.db.list('jugadores').push(jugador)
-            .then(_ => {
-                jugador = {};
-                console.log('success');
-            });
+        // this.jugador = this.saveJugador();
+        return this.db.list('jugadores').push(jugador);
+
     }
 
     /*

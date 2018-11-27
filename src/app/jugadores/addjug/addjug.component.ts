@@ -3,7 +3,7 @@ import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {AngularFireDatabase} from 'angularfire2/database';
 import {interval} from 'rxjs';
 import {AutenticacionService} from '../../servicios/autenticacion.service';
-import {JugadoresService} from "../../servicios/jugadores.service";
+import {JugadoresService} from '../../servicios/jugadores.service';
 
 @Component({
     selector: 'app-addjug',
@@ -22,7 +22,8 @@ export class AddjugComponent implements OnInit {
     }
     */
 
-    constructor(private  jf: FormBuilder, private js: JugadoresService){ }
+    constructor(private  jf: FormBuilder, private js: JugadoresService) {
+    }
 
     /*
     constructor(private db: AngularFireDatabase) { }
@@ -37,7 +38,11 @@ export class AddjugComponent implements OnInit {
 
     onSubmit() {
 
-        this.js.guardarJugador(this.saveJugador());
+        this.js.guardarJugador(this.saveJugador())
+            .then(_ => {
+                this.jugador = {};
+                console.log('success');
+            });
 
         /*
         this.jugador = this.saveJugador();
