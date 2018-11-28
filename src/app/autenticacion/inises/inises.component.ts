@@ -48,11 +48,11 @@ export class InisesComponent implements OnInit {
                     console.log(error);
                 }
             );
-        setTimeout(() => {
+       /* setTimeout(() => {
             if (this.isAuth() === false) {
                 this.mensaje = true;
             }
-        }, 2000);
+        }, 2000);*/
 
     }
 
@@ -67,6 +67,7 @@ export class InisesComponent implements OnInit {
 
     isAuth() {
         return this.autService.isAuthenticated();
+        
     }
 
 }

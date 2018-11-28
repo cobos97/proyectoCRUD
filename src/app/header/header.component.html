@@ -13,21 +13,21 @@
       <li class="nav-item active" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link waves-light" mdbWavesEffect routerLink="/">Inicio<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" routerLinkActive="active">
+      <li class="nav-item active" routerLinkActive="active" *ngIf='isAuth()'>
         <a class="nav-link waves-light" mdbWavesEffect routerLink="/addjug">Añadir jugadores<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" routerLinkActive="active">
+      <li class="nav-item active" routerLinkActive="active" *ngIf='isAuth()'>
         <a class="nav-link waves-light" mdbWavesEffect routerLink="/jugadores">Jugadores<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item active" routerLinkActive="active">
         <a class="nav-link waves-light" mdbWavesEffect routerLink="/registro">Registro<span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item active" routerLinkActive="active">
+      <li class="nav-item active" routerLinkActive="active" *ngIf='!isAuth()'>
         <a class="nav-link waves-light" mdbWavesEffect routerLink="/iniciosesion">Inicie sesión<span class="sr-only">(current)</span></a>
       </li>
 
 
-      <li class="nav-item">
+      <li class="nav-item" *ngIf='isAuth()'>
         <button class="btn btn-light"
                 (click)="onLogout()">Cerrar sesión</button>
       </li>

@@ -15,17 +15,27 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-        console.log(this.isAuth());
+        //console.log(this.isAuth());
 
   }
 
     isAuth() {
-        return this.autService.isAuthenticated();
+        return this.autService.isLogged();
     }
 
     onLogout() {
-        this.autService.logout();
-        this.router.navigate(['/inicio'])
+        console.log("Cerrando...");
+        this.autService.logout()
+        .then(
+            res=>{
+                this.router.navigate(['/inicio']);
+            }
+        )
+        .catch(
+            err=>{
+                console.log(err);
+            }
+        );
     }
 
 
