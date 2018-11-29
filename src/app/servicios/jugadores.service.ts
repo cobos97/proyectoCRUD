@@ -15,9 +15,10 @@ export class JugadoresService {
     listarJugadores() {
         return this.db.list('/jugadores').snapshotChanges().pipe(map(item => {
             return item.map(a => {
+                    const key = a.payload.key;
                     const data = a.payload.val();
                     // cons key=a.payload.key;
-                    return {data};
+                    return {key, data};
                 }
             );
         }));

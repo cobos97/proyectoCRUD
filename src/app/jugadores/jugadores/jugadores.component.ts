@@ -12,6 +12,7 @@ import {JugadoresService} from "../../servicios/jugadores.service";
 export class JugadoresComponent implements OnInit {
 
     jugadores$: any[] = [];
+    idJugador: any;
 
 
     /*
@@ -45,12 +46,25 @@ export class JugadoresComponent implements OnInit {
     }
 
 
-    eliminarJugador(id$) {
+    guardarID(id){
+        console.log("Guardando id");
+        this.idJugador = id;
+    }
+
+    eliminarJugador() {
+        /*
         console.log("Eliminar");
         console.log(id$.data.apellidos);
-        console.log(this.saveJugador(id$).toString());
+        console.log(id$.key);
+*/
+        //console.log(this.idJugador);
+        this.sj.delJugador(this.idJugador);
 
-        //this.sj.delJugador("-LSLPOQl7r56gmMqXKj-");
+        this.sj.listarJugadores().subscribe(
+            jugadores => {
+                this.jugadores$ = jugadores;
+            }
+        );
         //this.sj.delJugador(this.saveJugador(id$).toString());
 
         /*
@@ -68,6 +82,7 @@ export class JugadoresComponent implements OnInit {
 */
     }
 
+    /*
     saveJugador(id$) {
 
         const saveJugador = {
@@ -78,6 +93,6 @@ export class JugadoresComponent implements OnInit {
 
         return saveJugador;
     }
-
+*/
 
 }
