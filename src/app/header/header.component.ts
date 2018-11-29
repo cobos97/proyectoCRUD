@@ -15,7 +15,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-        //console.log(this.isAuth());
+        this.onLogout();
+
+        if (this.autService.isLogged()){
+            console.log("si");
+        }else{
+            console.log("no")
+        }
 
   }
 
@@ -24,7 +30,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onLogout() {
-        console.log("Cerrando...");
+        // console.log("Cerrando...");
         this.autService.logout()
         .then(
             res=>{

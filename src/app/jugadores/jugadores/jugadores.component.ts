@@ -44,4 +44,40 @@ export class JugadoresComponent implements OnInit {
         );
     }
 
+
+    eliminarJugador(id$) {
+        console.log("Eliminar");
+        console.log(id$.data.apellidos);
+        console.log(this.saveJugador(id$).toString());
+
+        //this.sj.delJugador("-LSLPOQl7r56gmMqXKj-");
+        //this.sj.delJugador(this.saveJugador(id$).toString());
+
+        /*
+        this.sj.delJugador(this.saveJugador(id$))
+            .then(
+                res=>{
+                    console.log("Borrado");
+                }
+            )
+            .catch(
+                err=>{
+                    console.log(err);
+                }
+            );
+*/
+    }
+
+    saveJugador(id$) {
+
+        const saveJugador = {
+            nombre: id$.data.nombre,
+            apellidos: id$.data.apellidos,
+            fechanac: id$.data.fechanac
+        };
+
+        return saveJugador;
+    }
+
+
 }

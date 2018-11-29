@@ -67,7 +67,7 @@ export class RegistroComponent implements OnInit {
     }
 
     onSubmit() {
-        this.userdata = this.saveUserdata();;
+        this.userdata = this.saveUserdata();
         
         this.autService.registroUsuario(this.userdata)
         .then(

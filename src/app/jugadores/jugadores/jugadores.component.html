@@ -8,6 +8,7 @@
         <th>Nombre</th>
         <th>Apellidos</th>
         <th>Fecha de Nacimiento</th>
+        <th>Eliminar</th>
     </tr>
     </thead>
     <tbody>
@@ -15,6 +16,8 @@
         <td>{{jugador.data.nombre}}</td>
         <td>{{jugador.data.apellidos}}</td>
         <td>{{jugador.data.fechanac}}</td>
+        <td><button class="btn btn-danger"
+                    (click)="eliminarJugador(jugador)">Eliminar</button></td>
     </tr>
     </tbody>
 </table>

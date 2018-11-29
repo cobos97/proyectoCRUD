@@ -7,31 +7,10 @@ import {map} from 'rxjs/operators';
 })
 export class JugadoresService {
 
-    lista$: any[] = [];
-
     constructor(private db: AngularFireDatabase) {
     }
 
 
-    /*
-    listarJugadores() {
-        this.db.list('/jugadores').snapshotChanges().pipe(map(item => {
-            return item.map(a => {
-                    const data = a.payload.val();
-                    // cons key=a.payload.key;
-                    return {data};
-                }
-            );
-        })).subscribe(
-            jugadores => {
-                this.lista$ = jugadores;
-            }
-        );
-
-        return this.lista$;
-
-    }
-    */
 
     listarJugadores() {
         return this.db.list('/jugadores').snapshotChanges().pipe(map(item => {
@@ -61,6 +40,11 @@ export class JugadoresService {
         return saveJugador;
     }
     */
+
+    delJugador (jugador) {
+        return this.db.list('jugadores').remove(jugador);
+    }
+
 
 
 }

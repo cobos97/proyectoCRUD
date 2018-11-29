@@ -18,12 +18,12 @@ export class AutenticacionService {
     */
     registroUsuario(userdata) {
         //return this.afS.auth.createUserWithEmailAndPassword
-        return firebase.auth().createUserWithEmailAndPassword(userdata.email,
+        return this.afS.auth.createUserWithEmailAndPassword(userdata.email,
             userdata.password);
     }
 
     inicioSesion(userdata) {
-        return firebase.auth().signInWithEmailAndPassword(userdata.email, userdata.password);
+        return this.afS.auth.signInWithEmailAndPassword(userdata.email, userdata.password);
 
     }
 
@@ -33,7 +33,7 @@ export class AutenticacionService {
     isLogged(){
         return this.isAuthenticated().pipe(map(user=>{
             console.log(user);
-            if(user)
+            if(this.afS.auth.currentUser)
               return true;
             else
               return false;
