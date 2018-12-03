@@ -30,10 +30,10 @@ export class AutenticacionService {
     isAuthenticated() {
         return this.afS.authState;
     }
+
     isLogged(){
-        return this.isAuthenticated().pipe(map(user=>{
-            console.log(user);
-            if(this.afS.auth.currentUser)
+        return this.afS.authState.pipe(map(user=>{
+            if(user)
               return true;
             else
               return false;
@@ -43,7 +43,9 @@ export class AutenticacionService {
 
     logout() {
         console.log("en el servicio...");
-        return this.afS.auth.signOut();
+        return firebase.auth().signOut();
+
+        //return this.afS.auth.signOut();
         //firebase.auth().signOut();
     }
 

@@ -9,20 +9,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+    isLogged$:any;
     constructor(private autService: AutenticacionService,
                 private router: Router,
                 private activatedRouter: ActivatedRoute) { }
-
   ngOnInit() {
 
-        this.onLogout();
-
-        if (this.autService.isLogged()){
-            console.log("si");
-        }else{
-            console.log("no")
-        }
-
+        //this.onLogout();
+        this.isLogged$=this.autService.isAuthenticated();
   }
 
     isAuth() {
