@@ -13,6 +13,8 @@ export class JugadoresComponent implements OnInit {
 
     jugadores$: any[] = [];
     idJugador: any;
+
+    jugadorId: any;
     jugadorNombre: any;
     jugadorApellido: any;
     jugadorFecha: any;
@@ -50,7 +52,8 @@ export class JugadoresComponent implements OnInit {
 
 
 
-    guardarJugador(nombre, apellido, fecha){
+    guardarJugador(id, nombre, apellido, fecha){
+        this.jugadorId = id;
         this.jugadorNombre = nombre;
         this.jugadorApellido = apellido;
         this.jugadorFecha = fecha;
@@ -58,6 +61,9 @@ export class JugadoresComponent implements OnInit {
 
     getNombreJugador(){
         return this.jugadorNombre;
+    }
+    setNombreJugador(){
+
     }
     getApellidoJugador(){
         return this.jugadorApellido;
@@ -74,6 +80,14 @@ export class JugadoresComponent implements OnInit {
 
     getID(){
         return this.idJugador;
+    }
+
+    getJugadorId(){
+        return this.jugadorId;
+    }
+
+    mostrarID(){
+        console.log(this.jugadorId);
     }
 
     eliminarJugador() {
