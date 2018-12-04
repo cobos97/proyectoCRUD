@@ -8,6 +8,7 @@
         <th>Nombre</th>
         <th>Apellidos</th>
         <th>Fecha de Nacimiento</th>
+        <th>Editar</th>
         <th>Eliminar</th>
     </tr>
     </thead>
@@ -16,6 +17,8 @@
         <td>{{jugador.data.nombre}}</td>
         <td>{{jugador.data.apellidos}}</td>
         <td>{{jugador.data.fechanac}}</td>
+        <td><button type="button" mdbBtn color="success" data-toggle="modal" data-target="#basicExample"
+                    (click)="frame.show(); guardarJugador(jugador.data.nombre, jugador.data.apellidos, jugador.data.fechanac)" mdbWavesEffect>Editar</button></td>
         <td><button type="button" mdbBtn color="danger" class="relative waves-light"
                     (click)="basicModal.show(); guardarID(jugador.key)" mdbWavesEffect>Eliminar</button></td>
     </tr>
@@ -45,6 +48,44 @@
                         aria-label="Close" (click)="basicModal.hide()" mdbWavesEffect>Cancelar</button>
                 <button type="button" mdbBtn color="success" class="relative waves-light" mdbWavesEffect
                         (click)="eliminarJugador(); basicModal.hide()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal editar-->
+<div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Editar jugador</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" id="nombreEditar" class="form-control validate" mdbInputDirective [value]="getNombreJugador()">
+                    <label data-error="wrong" data-success="right" >Nombre</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="text" id="apellidoEditar" class="form-control validate" mdbInputDirective [value]="getApellidoJugador()">
+                    <label data-error="wrong" data-success="right" >Apellido</label>
+                </div>
+
+                <div class="md-form mb-5">
+                    <i class="fa fa-envelope prefix grey-text"></i>
+                    <input type="date" id="fechaEditar" class="form-control validate" mdbInputDirective [value]="getFechaJugador()" placeholder="">
+                    <label data-error="wrong" data-success="right">Fecha de nacimiento</label>
+                </div>
+
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button mdbBtn color="default" class="waves-light" mdbWavesEffect>Login</button>
             </div>
         </div>
     </div>

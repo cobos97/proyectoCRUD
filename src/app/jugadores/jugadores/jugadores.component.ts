@@ -13,6 +13,9 @@ export class JugadoresComponent implements OnInit {
 
     jugadores$: any[] = [];
     idJugador: any;
+    jugadorNombre: any;
+    jugadorApellido: any;
+    jugadorFecha: any;
 
 
     /*
@@ -46,18 +49,35 @@ export class JugadoresComponent implements OnInit {
     }
 
 
+
+    guardarJugador(nombre, apellido, fecha){
+        this.jugadorNombre = nombre;
+        this.jugadorApellido = apellido;
+        this.jugadorFecha = fecha;
+    }
+
+    getNombreJugador(){
+        return this.jugadorNombre;
+    }
+    getApellidoJugador(){
+        return this.jugadorApellido;
+    }
+    getFechaJugador(){
+        return this.jugadorFecha;
+    }
+
+
     guardarID(id){
         console.log("Guardando id");
         this.idJugador = id;
     }
 
+    getID(){
+        return this.idJugador;
+    }
+
     eliminarJugador() {
-        /*
-        console.log("Eliminar");
-        console.log(id$.data.apellidos);
-        console.log(id$.key);
-*/
-        //console.log(this.idJugador);
+
         this.sj.delJugador(this.idJugador);
 
         this.sj.listarJugadores().subscribe(
@@ -65,21 +85,7 @@ export class JugadoresComponent implements OnInit {
                 this.jugadores$ = jugadores;
             }
         );
-        //this.sj.delJugador(this.saveJugador(id$).toString());
 
-        /*
-        this.sj.delJugador(this.saveJugador(id$))
-            .then(
-                res=>{
-                    console.log("Borrado");
-                }
-            )
-            .catch(
-                err=>{
-                    console.log(err);
-                }
-            );
-*/
     }
 
     /*
