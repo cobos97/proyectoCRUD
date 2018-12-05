@@ -19,6 +19,7 @@ import { AutenticacionService } from './servicios/autenticacion.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {InisesComponent} from './autenticacion/inises/inises.component';
 import {GuardService} from "./servicios/guard.service";
+import { EditjugComponent } from './jugadores/editjug/editjug.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     {path: 'jugadores', component: JugadoresComponent, canActivate:[GuardService]},
     {path: 'registro', component: RegistroComponent},
     {path: 'iniciosesion', component: InisesComponent},
+    {path: 'editjug/:id', component: EditjugComponent},
     {path: '**', component: InicioComponent}
 ];
 
@@ -38,7 +40,8 @@ const routes: Routes = [
         AddjugComponent,
         JugadoresComponent,
         RegistroComponent,
-        InisesComponent
+        InisesComponent,
+        EditjugComponent
     ],
     imports: [
         BrowserModule,

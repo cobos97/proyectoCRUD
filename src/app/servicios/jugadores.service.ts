@@ -24,26 +24,22 @@ export class JugadoresService {
         }));
     }
 
-
     guardarJugador(jugador) {
         // this.jugador = this.saveJugador();
         return this.db.list('jugadores').push(jugador);
 
     }
 
-    /*
-    saveJugador() {
-        const saveJugador = {
-            nombre: this.jugadoresForm.get('nombre').value,
-            apellidos: this.jugadoresForm.get('apellidos').value,
-            fechanac: this.jugadoresForm.get('fechanac').value
-        };
-        return saveJugador;
-    }
-    */
-
     delJugador (jugador) {
         return this.db.list('jugadores').remove(jugador);
+    }
+
+
+
+    editarJugador( jugador, id){
+        console.log("En el servicio");
+        console.log(jugador);
+        console.log(id);
     }
 
 
