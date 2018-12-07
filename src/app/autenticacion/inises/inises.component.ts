@@ -13,6 +13,7 @@ export class InisesComponent implements OnInit {
     loginForm: FormGroup;
     userdata: any;
     mensaje = false;
+    mensaje2 = false;
 
     constructor(private formBuilder: FormBuilder,
                 private autService: AutenticacionService,
@@ -45,16 +46,31 @@ export class InisesComponent implements OnInit {
             })
             .catch(
                 error => {
+                    this.mensaje = true;
                     console.log(error);
                 }
             );
-       /* setTimeout(() => {
-            if (this.isAuth() === false) {
-                this.mensaje = true;
-            }
-        }, 2000);*/
+        /* setTimeout(() => {
+             if (this.isAuth() === false) {
+                 this.mensaje = true;
+             }
+         }, 2000);*/
 
     }
+
+    sesionGoogle() {
+        console.log('Entra');
+        this.autService.inicioSesionGoogle()
+            .then( response => {
+                console.log(response);
+                this.router.navigate(['/inicio']);
+            })
+            .catch( error => {
+                this.mensaje2 = true;
+                console.log(error);
+            });
+    }
+
 
     saveUserdata() {
 
@@ -67,7 +83,6 @@ export class InisesComponent implements OnInit {
 
     isAuth() {
         return this.autService.isAuthenticated();
-        
     }
 
 }
