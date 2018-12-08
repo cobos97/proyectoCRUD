@@ -18,7 +18,7 @@
         <td>{{jugador.data.apellidos}}</td>
         <td>{{jugador.data.fechanac}}</td>
         <td><button type="button" mdbBtn color="success" data-toggle="modal" data-target="#basicExample"
-                    routerLink="/editjug/{{ jugador.key }}" mdbWavesEffect>Editar</button></td>
+                    routerLink="/editjug/{{ jugador.key }}/{{ jugador.data.nombre }}/{{ jugador.data.apellidos }}/{{ jugador.data.fechanac }}" mdbWavesEffect>Editar</button></td>
         <td><button type="button" mdbBtn color="danger" class="relative waves-light"
                     (click)="basicModal.show(); guardarID(jugador.key)" mdbWavesEffect>Eliminar</button></td>
     </tr>

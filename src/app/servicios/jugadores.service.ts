@@ -11,7 +11,6 @@ export class JugadoresService {
     }
 
 
-
     listarJugadores() {
         return this.db.list('/jugadores').snapshotChanges().pipe(map(item => {
             return item.map(a => {
@@ -30,20 +29,16 @@ export class JugadoresService {
 
     }
 
-    delJugador (jugador) {
+    delJugador(jugador) {
         return this.db.list('jugadores').remove(jugador);
     }
 
 
-
-    editarJugador( jugador, id){
-        console.log("En el servicio");
+    editarJugador(jugador, id) {
+        console.log('En el servicio');
         console.log(jugador);
         console.log(id);
     }
-
-
-
 
 
 }

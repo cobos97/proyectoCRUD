@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset 2">
     <h2>Añadir nuevo jugador</h2>
-    <form [formGroup]="jugadoresEditForm" (ngSubmit)="onEdit()">
+    <form [formGroup]="jugadoresEditForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="nombre">Nombre</label>
         <input type="text"
@@ -17,10 +17,10 @@
                formControlName="apellidos">
       </div>
       <div class="form-group">
-        <label for="fechanac">Fecha Nacimiento</label>
+        <label for="fecha">Fecha Nacimiento</label>
         <input type="date"
                class="form-control"
-               id="fechanac"
+               id="fecha"
                formControlName="fecha">
       </div>
 

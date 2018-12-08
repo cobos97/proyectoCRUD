@@ -25,35 +25,51 @@ export class EditjugComponent implements OnInit {
         this.activatedRouter.params
             .subscribe(parametros => {
                 this.id = parametros['id'];
+                this.nombre = parametros['nombre'];
+                this.apellidos = parametros['apellidos'];
+                this.fecha = parametros['fecha'];
                 console.log(this.id);
-                //this.presupuestoService.getPresupuesto( this.id)
-                //.subscribe( presupuesto => this.presupuesto = presupuesto)
+                // this.presupuestoService.getPresupuesto( this.id)
+                // .subscribe( presupuesto => this.presupuesto = presupuesto)
             });
     }
 
     ngOnInit() {
+
+
         this.jugadoresEditForm = this.pf.group({
-            nombre: ['', Validators.required],
-            apellidos: ['', Validators.required],
-            fecha: ['', Validators.required]
+            nombre: [this.nombre, Validators.required],
+            apellidos: [this.apellidos, Validators.required],
+            fecha: [this.fecha, Validators.required]
         });
 
     }
 
 
     onSubmit() {
-        this.jugador = this.saveJugador();
-        this.jugadorService.editarJugador(this.jugador, this.id)
-            //.subscribe(newpre => {
-                //this.router.navigate(['/jugadores'])
-            //})
+
+        this.jugadorService.delJugador(this.id);
+
+        this.jugadorService.guardarJugador(this.saveJugador())
+            .then(_ => {
+                this.jugador = {};
+                this.nombre = '';
+                this.apellidos = '';
+                this.fecha = '';
+                console.log('success');
+                this.router.navigate(['/jugadores']);
+            });
+
+        // .subscribe(newpre => {
+        // this.ro uter.navigate(['/jugadores'])
+        // })
     }
 
 
     saveJugador() {
         const saveJugador = {
             nombre: this.jugadoresEditForm.get('nombre').value,
-            apellidos: this.jugadoresEditForm.get('apellido').value,
+            apellidos: this.jugadoresEditForm.get('apellidos').value,
             fecha: this.jugadoresEditForm.get('fecha').value
         };
         return saveJugador;

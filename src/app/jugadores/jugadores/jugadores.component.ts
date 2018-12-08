@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase, AngularFireList, PathReference, QueryFn} from 'angularfire2/database';
 import {map} from 'rxjs/operators';
 import {any} from 'codelyzer/util/function';
-import {JugadoresService} from "../../servicios/jugadores.service";
+import {JugadoresService} from '../../servicios/jugadores.service';
 
 @Component({
     selector: 'app-jugadores',
@@ -25,7 +25,8 @@ export class JugadoresComponent implements OnInit {
     }
     */
 
-    constructor(private sj: JugadoresService){  }
+    constructor(private sj: JugadoresService) {
+    }
 
     ngOnInit() {
         /*
@@ -51,42 +52,44 @@ export class JugadoresComponent implements OnInit {
     }
 
 
-
-    guardarJugador(id, nombre, apellido, fecha){
+    guardarJugador(id, nombre, apellido, fecha) {
         this.jugadorId = id;
         this.jugadorNombre = nombre;
         this.jugadorApellido = apellido;
         this.jugadorFecha = fecha;
     }
 
-    getNombreJugador(){
+    getNombreJugador() {
         return this.jugadorNombre;
     }
-    setNombreJugador(){
+
+    setNombreJugador() {
 
     }
-    getApellidoJugador(){
+
+    getApellidoJugador() {
         return this.jugadorApellido;
     }
-    getFechaJugador(){
+
+    getFechaJugador() {
         return this.jugadorFecha;
     }
 
 
-    guardarID(id){
-        console.log("Guardando id");
+    guardarID(id) {
+        console.log('Guardando id');
         this.idJugador = id;
     }
 
-    getID(){
+    getID() {
         return this.idJugador;
     }
 
-    getJugadorId(){
+    getJugadorId() {
         return this.jugadorId;
     }
 
-    mostrarID(){
+    mostrarID() {
         console.log(this.jugadorId);
     }
 

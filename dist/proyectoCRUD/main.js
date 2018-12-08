@@ -398,6 +398,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
 /* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_15__);
 /* harmony import */ var _autenticacion_inises_inises_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./autenticacion/inises/inises.component */ "./src/app/autenticacion/inises/inises.component.ts");
+/* harmony import */ var _servicios_guard_service__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./servicios/guard.service */ "./src/app/servicios/guard.service.ts");
+/* harmony import */ var _jugadores_editjug_editjug_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./jugadores/editjug/editjug.component */ "./src/app/jugadores/editjug/editjug.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -422,12 +424,15 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
+
+
 var routes = [
     { path: '', component: _inicio_inicio_component__WEBPACK_IMPORTED_MODULE_8__["InicioComponent"] },
-    { path: 'addjug', component: _jugadores_addjug_addjug_component__WEBPACK_IMPORTED_MODULE_11__["AddjugComponent"] },
-    { path: 'jugadores', component: _jugadores_jugadores_jugadores_component__WEBPACK_IMPORTED_MODULE_12__["JugadoresComponent"] },
+    { path: 'addjug', component: _jugadores_addjug_addjug_component__WEBPACK_IMPORTED_MODULE_11__["AddjugComponent"], canActivate: [_servicios_guard_service__WEBPACK_IMPORTED_MODULE_17__["GuardService"]] },
+    { path: 'jugadores', component: _jugadores_jugadores_jugadores_component__WEBPACK_IMPORTED_MODULE_12__["JugadoresComponent"], canActivate: [_servicios_guard_service__WEBPACK_IMPORTED_MODULE_17__["GuardService"]] },
     { path: 'registro', component: _autenticacion_registro_registro_component__WEBPACK_IMPORTED_MODULE_13__["RegistroComponent"] },
     { path: 'iniciosesion', component: _autenticacion_inises_inises_component__WEBPACK_IMPORTED_MODULE_16__["InisesComponent"] },
+    { path: 'editjug/:id', component: _jugadores_editjug_editjug_component__WEBPACK_IMPORTED_MODULE_18__["EditjugComponent"] },
     { path: '**', component: _inicio_inicio_component__WEBPACK_IMPORTED_MODULE_8__["InicioComponent"] }
 ];
 var AppModule = /** @class */ (function () {
@@ -442,7 +447,8 @@ var AppModule = /** @class */ (function () {
                 _jugadores_addjug_addjug_component__WEBPACK_IMPORTED_MODULE_11__["AddjugComponent"],
                 _jugadores_jugadores_jugadores_component__WEBPACK_IMPORTED_MODULE_12__["JugadoresComponent"],
                 _autenticacion_registro_registro_component__WEBPACK_IMPORTED_MODULE_13__["RegistroComponent"],
-                _autenticacion_inises_inises_component__WEBPACK_IMPORTED_MODULE_16__["InisesComponent"]
+                _autenticacion_inises_inises_component__WEBPACK_IMPORTED_MODULE_16__["InisesComponent"],
+                _jugadores_editjug_editjug_component__WEBPACK_IMPORTED_MODULE_18__["EditjugComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -472,7 +478,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-md-6 offset-md-3\">\n    <form [formGroup]=\"loginForm\" (ngSubmit)=\"onSubmit()\">\n      <h4>Introduzca los siguientes datos:</h4>\n      <label>Correo Electrónico</label>\n      <input type=\"email\" id=\"inputEmail\" class=\"form-control\"\n             formControlName=\"email\" required autofocus>\n      <label>Contraseña</label>\n      <input type=\"password\" id=\"inputPassword\" class=\"form-control\"\n             formControlName=\"password\" required>\n      <hr>\n      <button type=\"submit\"\n              class=\"btn btn-primary\"\n              [disabled]=\"!loginForm.valid\"\n      >Inicie sesión</button>\n    </form>\n    <p class=\"alert alert-danger\" *ngIf=\"mensaje\">\n      El usuario o contraseña no es correcto\n    </p>\n  </div>\n</div>"
+module.exports = "<div class=\"row\">\n  <div class=\"col-md-6 offset-md-3\">\n    <form [formGroup]=\"loginForm\" (ngSubmit)=\"onSubmit()\">\n      <h4>Introduzca los siguientes datos:</h4>\n      <label>Correo Electrónico</label>\n      <input type=\"email\" id=\"inputEmail\" class=\"form-control\"\n             formControlName=\"email\" required autofocus>\n      <label>Contraseña</label>\n      <input type=\"password\" id=\"inputPassword\" class=\"form-control\"\n             formControlName=\"password\" required>\n      <hr>\n      <button type=\"submit\"\n              mdbBtn color=\"light\" class=\"lime accent-4\" mdbWavesEffect\n              [disabled]=\"!loginForm.valid\"\n      >Inicie sesión</button>\n      <button type=\"button\"\n              mdbBtn color=\"light\" class=\"lime accent-4\" mdbWavesEffect\n              (click)=\"sesionGoogle()\"\n      >Inicie sesión con Google</button>\n\n    </form>\n\n    <p>Si no dispone de cuenta pulse <a routerLink=\"/registro\">aquí</a></p>\n\n    <hr>\n\n    <p class=\"alert alert-danger\" *ngIf=\"mensaje\">\n      El usuario o contraseña no es correcto\n    </p>\n\n    <p class=\"alert alert-danger\" *ngIf=\"mensaje2\">\n      Error al iniciar sesión con Google\n    </p>\n\n  </div>\n</div>"
 
 /***/ }),
 
@@ -521,6 +527,7 @@ var InisesComponent = /** @class */ (function () {
         this.router = router;
         this.activatedRouter = activatedRouter;
         this.mensaje = false;
+        this.mensaje2 = false;
     }
     InisesComponent.prototype.ngOnInit = function () {
         this.loginForm = this.formBuilder.group({
@@ -546,6 +553,7 @@ var InisesComponent = /** @class */ (function () {
             _this.router.navigate(['/inicio']);
         })
             .catch(function (error) {
+            _this.mensaje = true;
             console.log(error);
         });
         /* setTimeout(() => {
@@ -553,6 +561,19 @@ var InisesComponent = /** @class */ (function () {
                  this.mensaje = true;
              }
          }, 2000);*/
+    };
+    InisesComponent.prototype.sesionGoogle = function () {
+        var _this = this;
+        console.log('Entra');
+        this.autService.inicioSesionGoogle()
+            .then(function (response) {
+            console.log(response);
+            _this.router.navigate(['/inicio']);
+        })
+            .catch(function (error) {
+            _this.mensaje2 = true;
+            console.log(error);
+        });
     };
     InisesComponent.prototype.saveUserdata = function () {
         var saveUserdata = {
@@ -589,7 +610,7 @@ var InisesComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"row\">\n  <div class=\"col-md-6 offset-md-3\">\n    <form [formGroup]=\"registroForm\" (ngSubmit)=\"onSubmit()\">\n      <h4>Introduzca sus datos de registro</h4>\n      <label>Correo Electrónico</label>\n      <input type=\"email\" id=\"inputEmail\" class=\"form-control\"\n             formControlName=\"email\" required autofocus>\n      <p class=\"alert alert-danger\" *ngIf=\"erroresForm.email\">\n        {{ erroresForm.email }}\n      </p>\n      <label>Contraseña</label>\n      <input type=\"password\" id=\"inputPassword\" class=\"form-control\"\n             formControlName=\"password\" required>\n      <p class=\"alert alert-danger\" *ngIf=\"erroresForm.password\">\n        {{ erroresForm.password }}\n      </p>\n      <hr>\n\n      <button type=\"submit\" mdbBtn color=\"light\" class=\"lime accent-4\" mdbWavesEffect [disabled]=\"!registroForm.valid\">Registar</button>\n\n    </form>\n  </div>\n</div>"
+module.exports = "<div class=\"row\">\n  <div class=\"col-md-6 offset-md-3\">\n    <form [formGroup]=\"registroForm\" (ngSubmit)=\"onSubmit()\">\n      <h4>Introduzca sus datos de registro</h4>\n      <label>Correo Electrónico</label>\n      <input type=\"email\" id=\"inputEmail\" class=\"form-control\"\n             formControlName=\"email\" required autofocus>\n      <p class=\"alert alert-danger\" *ngIf=\"erroresForm.email\">\n        {{ erroresForm.email }}\n      </p>\n      <label>Contraseña</label>\n      <input type=\"password\" id=\"inputPassword\" class=\"form-control\"\n             formControlName=\"password\" required>\n      <p class=\"alert alert-danger\" *ngIf=\"erroresForm.password\">\n        {{ erroresForm.password }}\n      </p>\n      <hr>\n\n      <button type=\"submit\" mdbBtn color=\"light\" class=\"lime accent-4\" mdbWavesEffect [disabled]=\"!registroForm.valid\">Registar</button>\n\n    </form>\n    <p>Si ya dispone de cuenta pulse <a routerLink=\"/iniciosesion\">aquí</a></p>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -734,7 +755,7 @@ var RegistroComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"menu\">\n<!--Navbar-->\n<mdb-navbar SideClass=\"navbar navbar-expand-lg navbar-light lime accent-4\">\n\n  <!-- Navbar brand -->\n  <mdb-navbar-brand><a class=\"navbar-brand\" href=\"#\">Club de Tenis</a></mdb-navbar-brand>\n\n  <!-- Collapsible content -->\n  <links>\n\n    <!-- Links -->\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item active\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/\">Inicio<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='isAuth()'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/addjug\">Añadir jugadores<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='isAuth()'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/jugadores\">Jugadores<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item active\" routerLinkActive=\"active\">\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/registro\">Registro<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='!isAuth()'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/iniciosesion\">Inicie sesión<span class=\"sr-only\">(current)</span></a>\n      </li>\n\n\n      <li class=\"nav-item\" *ngIf='isAuth()'>\n        <button class=\"btn btn-light\"\n                (click)=\"onLogout()\">Cerrar sesión</button>\n      </li>\n    </ul>\n\n  </links>\n  <!-- Collapsible content -->\n\n</mdb-navbar>\n<!--/.Navbar-->\n</div>"
+module.exports = "<div class=\"menu\">\n<!--Navbar-->\n<mdb-navbar SideClass=\"navbar navbar-expand-lg navbar-light lime accent-4\">\n\n  <!-- Navbar brand -->\n  <mdb-navbar-brand><a class=\"navbar-brand\" href=\"#\">Club de Tenis</a></mdb-navbar-brand>\n\n  <!-- Collapsible content -->\n  <links>\n\n    <!-- Links -->\n    <ul class=\"navbar-nav mr-auto\">\n      <li class=\"nav-item active\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact:true}\">\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/\">Inicio<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='isLogged$ | async'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/addjug\">Añadir jugadores<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='isLogged$ | async'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/jugadores\">Jugadores<span class=\"sr-only\">(current)</span></a>\n      </li>\n      <!--\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='!(isLogged$ | async)'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/registro\">Registro<span class=\"sr-only\">(current)</span></a>\n      </li>\n      -->\n      <li class=\"nav-item active\" routerLinkActive=\"active\" *ngIf='!(isLogged$ | async)'>\n        <a class=\"nav-link waves-light\" mdbWavesEffect routerLink=\"/iniciosesion\">Inicie sesión<span class=\"sr-only\">(current)</span></a>\n      </li>\n\n\n      <li class=\"nav-item\" *ngIf='isLogged$ | async'>\n        <button class=\"btn btn-light\"\n                (click)=\"onLogout()\">Cerrar sesión</button>\n      </li>\n    </ul>\n\n  </links>\n  <!-- Collapsible content -->\n\n</mdb-navbar>\n<!--/.Navbar-->\n</div>"
 
 /***/ }),
 
@@ -781,13 +802,8 @@ var HeaderComponent = /** @class */ (function () {
         this.activatedRouter = activatedRouter;
     }
     HeaderComponent.prototype.ngOnInit = function () {
-        this.onLogout();
-        if (this.autService.isLogged()) {
-            console.log("si");
-        }
-        else {
-            console.log("no");
-        }
+        //this.onLogout();
+        this.isLogged$ = this.autService.isAuthenticated();
     };
     HeaderComponent.prototype.isAuth = function () {
         return this.autService.isLogged();
@@ -999,6 +1015,110 @@ var AddjugComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/jugadores/editjug/editjug.component.html":
+/*!**********************************************************!*\
+  !*** ./src/app/jugadores/editjug/editjug.component.html ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n  <div class=\"col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset 2\">\n    <h2>Añadir nuevo jugador</h2>\n    <form [formGroup]=\"jugadoresEditForm\" (ngSubmit)=\"onEdit()\">\n      <div class=\"form-group\">\n        <label for=\"nombre\">Nombre</label>\n        <input type=\"text\"\n               class=\"form-control\"\n               id=\"nombre\"\n               formControlName=\"nombre\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"apellidos\">Apellidos</label>\n        <input type=\"text\"\n               class=\"form-control\"\n               id=\"apellidos\"\n               formControlName=\"apellidos\">\n      </div>\n      <div class=\"form-group\">\n        <label for=\"fechanac\">Fecha Nacimiento</label>\n        <input type=\"date\"\n               class=\"form-control\"\n               id=\"fechanac\"\n               formControlName=\"fecha\">\n      </div>\n\n      <button type=\"submit\" mdbBtn color=\"light\" class=\"lime accent-4\" mdbWavesEffect [disabled]=\"!jugadoresEditForm.valid\">Editar jugador</button>\n\n      <div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"!jugadoresEditForm.valid\">\n        Por favor rellene todos los campos\n      </div>\n\n    </form>\n\n  </div>\n\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/jugadores/editjug/editjug.component.scss":
+/*!**********************************************************!*\
+  !*** ./src/app/jugadores/editjug/editjug.component.scss ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2p1Z2Fkb3Jlcy9lZGl0anVnL2VkaXRqdWcuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/jugadores/editjug/editjug.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/jugadores/editjug/editjug.component.ts ***!
+  \********************************************************/
+/*! exports provided: EditjugComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditjugComponent", function() { return EditjugComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _servicios_jugadores_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../servicios/jugadores.service */ "./src/app/servicios/jugadores.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var EditjugComponent = /** @class */ (function () {
+    function EditjugComponent(pf, jugadorService, router, activatedRouter) {
+        var _this = this;
+        this.pf = pf;
+        this.jugadorService = jugadorService;
+        this.router = router;
+        this.activatedRouter = activatedRouter;
+        this.activatedRouter.params
+            .subscribe(function (parametros) {
+            _this.id = parametros['id'];
+            console.log(_this.id);
+            //this.presupuestoService.getPresupuesto( this.id)
+            //.subscribe( presupuesto => this.presupuesto = presupuesto)
+        });
+    }
+    EditjugComponent.prototype.ngOnInit = function () {
+        this.jugadoresEditForm = this.pf.group({
+            nombre: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            apellidos: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required],
+            fecha: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_1__["Validators"].required]
+        });
+    };
+    EditjugComponent.prototype.onSubmit = function () {
+        this.jugador = this.saveJugador();
+        this.jugadorService.editarJugador(this.jugador, this.id);
+        //.subscribe(newpre => {
+        //this.router.navigate(['/jugadores'])
+        //})
+    };
+    EditjugComponent.prototype.saveJugador = function () {
+        var saveJugador = {
+            nombre: this.jugadoresEditForm.get('nombre').value,
+            apellidos: this.jugadoresEditForm.get('apellido').value,
+            fecha: this.jugadoresEditForm.get('fecha').value
+        };
+        return saveJugador;
+    };
+    EditjugComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-editjug',
+            template: __webpack_require__(/*! ./editjug.component.html */ "./src/app/jugadores/editjug/editjug.component.html"),
+            styles: [__webpack_require__(/*! ./editjug.component.scss */ "./src/app/jugadores/editjug/editjug.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"],
+            _servicios_jugadores_service__WEBPACK_IMPORTED_MODULE_2__["JugadoresService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]])
+    ], EditjugComponent);
+    return EditjugComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/jugadores/jugadores/jugadores.component.html":
 /*!**************************************************************!*\
   !*** ./src/app/jugadores/jugadores/jugadores.component.html ***!
@@ -1006,7 +1126,7 @@ var AddjugComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h3>Listado de Jugadores</h3>\n<a type=\"button\" mdbBtn color=\"light\" mdbWavesEffect class=\"float-md-right lime accent-4\" routerLink=\"/addjug\">Añadir\n    nuevo presupuesto</a>\n<br>\n<table class=\"table table-bordered table-striped tabla\" style=\"margin-top:40px;\">\n    <thead>\n    <tr class=\"filters\">\n        <th>Nombre</th>\n        <th>Apellidos</th>\n        <th>Fecha de Nacimiento</th>\n        <th>Eliminar</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr *ngFor=\"let jugador of jugadores$\">\n        <td>{{jugador.data.nombre}}</td>\n        <td>{{jugador.data.apellidos}}</td>\n        <td>{{jugador.data.fechanac}}</td>\n        <td><button type=\"button\" mdbBtn color=\"danger\" class=\"relative waves-light\"\n                    (click)=\"basicModal.show(); guardarID(jugador.key)\" mdbWavesEffect>Eliminar</button></td>\n    </tr>\n    </tbody>\n</table>\n\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"jugadores$.length==0\">\n    No hay ningún jugador insertado\n</div>\n\n<!-- Modal -->\n<div mdbModal #basicModal=\"mdbModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myBasicModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close pull-right\" aria-label=\"Close\" (click)=\"basicModal.hide()\">\n                    <span aria-hidden=\"true\">×</span>\n                </button>\n                <h4 class=\"modal-title w-100\" id=\"myModalLabel\">Eliminar</h4>\n            </div>\n            <div class=\"modal-body\">\n                ¿Está seguro de que desea eliminar el jugador?\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" mdbBtn color=\"danger\" class=\"waves-light\"\n                        aria-label=\"Close\" (click)=\"basicModal.hide()\" mdbWavesEffect>Cancelar</button>\n                <button type=\"button\" mdbBtn color=\"success\" class=\"relative waves-light\" mdbWavesEffect\n                        (click)=\"eliminarJugador(); basicModal.hide()\">Aceptar</button>\n            </div>\n        </div>\n    </div>\n</div>"
+module.exports = "<h3>Listado de Jugadores</h3>\n<a type=\"button\" mdbBtn color=\"light\" mdbWavesEffect class=\"float-md-right lime accent-4\" routerLink=\"/addjug\">Añadir\n    nuevo presupuesto</a>\n<br>\n<table class=\"table table-bordered table-striped tabla\" style=\"margin-top:40px;\">\n    <thead>\n    <tr class=\"filters\">\n        <th>Nombre</th>\n        <th>Apellidos</th>\n        <th>Fecha de Nacimiento</th>\n        <th>Editar</th>\n        <th>Eliminar</th>\n    </tr>\n    </thead>\n    <tbody>\n    <tr *ngFor=\"let jugador of jugadores$\">\n        <td>{{jugador.data.nombre}}</td>\n        <td>{{jugador.data.apellidos}}</td>\n        <td>{{jugador.data.fechanac}}</td>\n        <td><button type=\"button\" mdbBtn color=\"success\" data-toggle=\"modal\" data-target=\"#basicExample\"\n                    routerLink=\"/editjug/{{ jugador.key }}\" mdbWavesEffect>Editar</button></td>\n        <td><button type=\"button\" mdbBtn color=\"danger\" class=\"relative waves-light\"\n                    (click)=\"basicModal.show(); guardarID(jugador.key)\" mdbWavesEffect>Eliminar</button></td>\n    </tr>\n    </tbody>\n</table>\n\n\n<div class=\"alert alert-danger\" role=\"alert\" *ngIf=\"jugadores$.length==0\">\n    No hay ningún jugador insertado\n</div>\n\n<!-- Modal -->\n<div mdbModal #basicModal=\"mdbModal\" class=\"modal fade\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myBasicModalLabel\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\" role=\"document\">\n        <div class=\"modal-content\">\n            <div class=\"modal-header\">\n                <button type=\"button\" class=\"close pull-right\" aria-label=\"Close\" (click)=\"basicModal.hide()\">\n                    <span aria-hidden=\"true\">×</span>\n                </button>\n                <h4 class=\"modal-title w-100\" id=\"myModalLabel\">Eliminar</h4>\n            </div>\n            <div class=\"modal-body\">\n                ¿Está seguro de que desea eliminar el jugador?\n            </div>\n            <div class=\"modal-footer\">\n                <button type=\"button\" mdbBtn color=\"danger\" class=\"waves-light\"\n                        aria-label=\"Close\" (click)=\"basicModal.hide()\" mdbWavesEffect>Cancelar</button>\n                <button type=\"button\" mdbBtn color=\"success\" class=\"relative waves-light\" mdbWavesEffect\n                        (click)=\"eliminarJugador(); basicModal.hide()\">Aceptar</button>\n            </div>\n        </div>\n    </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -1073,36 +1193,42 @@ var JugadoresComponent = /** @class */ (function () {
             _this.jugadores$ = jugadores;
         });
     };
+    JugadoresComponent.prototype.guardarJugador = function (id, nombre, apellido, fecha) {
+        this.jugadorId = id;
+        this.jugadorNombre = nombre;
+        this.jugadorApellido = apellido;
+        this.jugadorFecha = fecha;
+    };
+    JugadoresComponent.prototype.getNombreJugador = function () {
+        return this.jugadorNombre;
+    };
+    JugadoresComponent.prototype.setNombreJugador = function () {
+    };
+    JugadoresComponent.prototype.getApellidoJugador = function () {
+        return this.jugadorApellido;
+    };
+    JugadoresComponent.prototype.getFechaJugador = function () {
+        return this.jugadorFecha;
+    };
     JugadoresComponent.prototype.guardarID = function (id) {
         console.log("Guardando id");
         this.idJugador = id;
     };
+    JugadoresComponent.prototype.getID = function () {
+        return this.idJugador;
+    };
+    JugadoresComponent.prototype.getJugadorId = function () {
+        return this.jugadorId;
+    };
+    JugadoresComponent.prototype.mostrarID = function () {
+        console.log(this.jugadorId);
+    };
     JugadoresComponent.prototype.eliminarJugador = function () {
         var _this = this;
-        /*
-        console.log("Eliminar");
-        console.log(id$.data.apellidos);
-        console.log(id$.key);
-*/
-        //console.log(this.idJugador);
         this.sj.delJugador(this.idJugador);
         this.sj.listarJugadores().subscribe(function (jugadores) {
             _this.jugadores$ = jugadores;
         });
-        //this.sj.delJugador(this.saveJugador(id$).toString());
-        /*
-        this.sj.delJugador(this.saveJugador(id$))
-            .then(
-                res=>{
-                    console.log("Borrado");
-                }
-            )
-            .catch(
-                err=>{
-                    console.log(err);
-                }
-            );
-*/
     };
     JugadoresComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1130,10 +1256,12 @@ var JugadoresComponent = /** @class */ (function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AutenticacionService", function() { return AutenticacionService; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
-/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase */ "./node_modules/firebase/dist/index.cjs.js");
+/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! angularfire2/auth */ "./node_modules/angularfire2/auth/index.js");
+/* harmony import */ var angularfire2_auth__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(angularfire2_auth__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1143,6 +1271,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -1157,38 +1286,83 @@ var AutenticacionService = /** @class */ (function () {
     Devuelve un Promise de tipo fire.auth.userCredentials
     */
     AutenticacionService.prototype.registroUsuario = function (userdata) {
-        //return this.afS.auth.createUserWithEmailAndPassword
+        // return this.afS.auth.createUserWithEmailAndPassword
         return this.afS.auth.createUserWithEmailAndPassword(userdata.email, userdata.password);
     };
     AutenticacionService.prototype.inicioSesion = function (userdata) {
         return this.afS.auth.signInWithEmailAndPassword(userdata.email, userdata.password);
     };
+    AutenticacionService.prototype.inicioSesionGoogle = function () {
+        return this.afS.auth.signInWithPopup(new firebase__WEBPACK_IMPORTED_MODULE_1__["auth"].GoogleAuthProvider());
+    };
     AutenticacionService.prototype.isAuthenticated = function () {
         return this.afS.authState;
     };
     AutenticacionService.prototype.isLogged = function () {
-        var _this = this;
-        return this.isAuthenticated().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (user) {
-            console.log(user);
-            if (_this.afS.auth.currentUser)
+        return this.afS.authState.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (user) {
+            if (user)
                 return true;
             else
                 return false;
         }));
     };
     AutenticacionService.prototype.logout = function () {
-        console.log("en el servicio...");
-        return this.afS.auth.signOut();
+        console.log('en el servicio...');
+        return firebase__WEBPACK_IMPORTED_MODULE_1__["auth"]().signOut();
+        //return this.afS.auth.signOut();
         //firebase.auth().signOut();
     };
     AutenticacionService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"], angularfire2_auth__WEBPACK_IMPORTED_MODULE_2__["AngularFireAuth"]])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], angularfire2_auth__WEBPACK_IMPORTED_MODULE_3__["AngularFireAuth"]])
     ], AutenticacionService);
     return AutenticacionService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/servicios/guard.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/servicios/guard.service.ts ***!
+  \********************************************/
+/*! exports provided: GuardService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GuardService", function() { return GuardService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _servicios_autenticacion_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../servicios/autenticacion.service */ "./src/app/servicios/autenticacion.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var GuardService = /** @class */ (function () {
+    function GuardService(autenticacionService) {
+        this.autenticacionService = autenticacionService;
+    }
+    GuardService.prototype.canActivate = function (route, state) {
+        return this.autenticacionService.isLogged();
+    };
+    GuardService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_servicios_autenticacion_service__WEBPACK_IMPORTED_MODULE_1__["AutenticacionService"]])
+    ], GuardService);
+    return GuardService;
 }());
 
 
@@ -1239,18 +1413,13 @@ var JugadoresService = /** @class */ (function () {
         // this.jugador = this.saveJugador();
         return this.db.list('jugadores').push(jugador);
     };
-    /*
-    saveJugador() {
-        const saveJugador = {
-            nombre: this.jugadoresForm.get('nombre').value,
-            apellidos: this.jugadoresForm.get('apellidos').value,
-            fechanac: this.jugadoresForm.get('fechanac').value
-        };
-        return saveJugador;
-    }
-    */
     JugadoresService.prototype.delJugador = function (jugador) {
         return this.db.list('jugadores').remove(jugador);
+    };
+    JugadoresService.prototype.editarJugador = function (jugador, id) {
+        console.log("En el servicio");
+        console.log(jugador);
+        console.log(id);
     };
     JugadoresService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({

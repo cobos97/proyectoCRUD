@@ -28,7 +28,7 @@ const routes: Routes = [
     {path: 'jugadores', component: JugadoresComponent, canActivate:[GuardService]},
     {path: 'registro', component: RegistroComponent},
     {path: 'iniciosesion', component: InisesComponent},
-    {path: 'editjug/:id', component: EditjugComponent},
+    {path: 'editjug/:id/:nombre/:apellidos/:fecha', component: EditjugComponent},
     {path: '**', component: InicioComponent}
 ];
 
