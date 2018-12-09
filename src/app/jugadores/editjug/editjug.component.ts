@@ -16,7 +16,7 @@ export class EditjugComponent implements OnInit {
     jugador: any;
     nombre: any;
     apellidos: any;
-    fecha: any;
+    fechanac: any;
 
     constructor(private pf: FormBuilder,
                 private jugadorService: JugadoresService,
@@ -27,7 +27,7 @@ export class EditjugComponent implements OnInit {
                 this.id = parametros['id'];
                 this.nombre = parametros['nombre'];
                 this.apellidos = parametros['apellidos'];
-                this.fecha = parametros['fecha'];
+                this.fechanac = parametros['fechanac'];
                 console.log(this.id);
                 // this.presupuestoService.getPresupuesto( this.id)
                 // .subscribe( presupuesto => this.presupuesto = presupuesto)
@@ -40,7 +40,7 @@ export class EditjugComponent implements OnInit {
         this.jugadoresEditForm = this.pf.group({
             nombre: [this.nombre, Validators.required],
             apellidos: [this.apellidos, Validators.required],
-            fecha: [this.fecha, Validators.required]
+            fechanac: [this.fechanac, Validators.required]
         });
 
     }
@@ -55,7 +55,7 @@ export class EditjugComponent implements OnInit {
                 this.jugador = {};
                 this.nombre = '';
                 this.apellidos = '';
-                this.fecha = '';
+                this.fechanac = '';
                 console.log('success');
                 this.router.navigate(['/jugadores']);
             });
@@ -70,7 +70,7 @@ export class EditjugComponent implements OnInit {
         const saveJugador = {
             nombre: this.jugadoresEditForm.get('nombre').value,
             apellidos: this.jugadoresEditForm.get('apellidos').value,
-            fecha: this.jugadoresEditForm.get('fecha').value
+            fechanac: this.jugadoresEditForm.get('fechanac').value
         };
         return saveJugador;
     }
